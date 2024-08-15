@@ -1,0 +1,48 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: PairSonic
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - given-names: Florentin
+    family-names: Putz
+    affiliation: 'SEEMOO, TU Darmstadt'
+    orcid: 'https://orcid.org/0000-0003-3122-7315'
+  - given-names: Thomas
+    family-names: Völkl
+    affiliation: 'SEEMOO, TU Darmstadt'
+    orcid: 'https://orcid.org/0009-0004-1051-1549'
+  - given-names: Maximilian
+    family-names: Gehring
+    affiliation: TU Darmstadt
+    orcid: 'https://orcid.org/0009-0004-5599-5807'
+repository-code: 'https://github.com/seemoo-lab/pairsonic'
+url: 'https://fputz.net/pairsonic'
+abstract: >-
+  Securely exchanging contact information is essential for
+  establishing trustworthy communication channels that
+  facilitate effective online collaboration. However,
+  current methods are neither user-friendly nor scalable for
+  large groups of users. In response, we introduce
+  PairSonic, a novel group pairing protocol that extends
+  trust from physical encounters to online communication.
+  PairSonic simplifies the pairing process by automating the
+  tedious verification tasks of previous methods through an
+  acoustic out-of-band channel using smartphones' built-in
+  hardware. Our protocol not only facilitates connecting
+  users for computer-supported collaboration, but also
+  provides a more user-friendly and scalable solution to the
+  authentication ceremonies currently used in end-to-end
+  encrypted messengers like Signal or WhatsApp.
+keywords:
+  - Usable Security
+  - Group Pairing
+  - Secure Device Pairing
+  - Trust Establishment
+  - Authentication Ceremony
+  - Acoustic Communication
+license: Apache-2.0
+version: '1.0'
+date-released: '2024-08-14'

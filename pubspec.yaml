@@ -1,0 +1,72 @@
+name: pairsonic
+description: Helping groups securely exchange contact information.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Localization / i18n
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+
+  # App structure in general
+  get_it: ^7.2.0
+  logger: ^1.4.0
+  shared_preferences: ^2.0.15
+  permission_handler: ^11.1.0
+  device_info_plus: ^9.0.0
+
+  # UI
+  cupertino_icons: ^1.0.5
+  fluttertoast: ^8.1.1
+  syncfusion_flutter_sliders: ^24.1.41
+  flutter_spinkit: ^5.1.0
+  adaptive_dialog: ^2.0.0
+  flutter_svg: ^2.0.10
+
+  # Backend and storage
+  sqflite: ^2.0.2+1
+  sembast: ^3.1.1+1
+  path: ^1.8.3
+  path_provider: ^2.0.15
+  flutter_secure_storage: ^8.1.0
+  sodium_libs: ^1.2.3
+
+  # Group pairing in general
+  pointycastle: ^3.6.0
+  messagepack: ^0.2.1
+
+  # PairSonic group pairing (audio)
+  ggwave_flutter:
+    git: 
+     url: https://github.com/fput/ggwave_flutter.git
+     ref: cdf3736fe3b38959350e3a452a07f0cf6f375a8b
+  flutter_sound: ^9.2.13
+  volume_control: ^0.1.5
+  convert: ^3.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^6.2.0
+  build_runner: ^2.1.11
+  test: any
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/profileImages/
+    - assets/grouppairing/  
+  generate: true
+
+flutter_intl:
+  enabled: true
