@@ -302,60 +302,47 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
                 ],
               ),
             ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Spacer(),
-                  SizeAnimatedIcon(
-                      key: _animatedIconKey,
-                      beginSize: 0,
-                      endSize: (MediaQuery.of(context).size.height * 0.33).round(),
-                      duration: const Duration(milliseconds: 700),
-                      iconData: Icons.lock,
-                      iconColor: Colors.blue),
-                  widget._uiState.isCoordinator == true ? Center(
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.multitrack_audio_rounded),
-                      onPressed: () => widget._uiState.protocol!.retransmitVerificationAudio(),
-                      label: Text(S
-                          .of(context)
-                          .groupPairingVerificationRetransmissionButton),
-                    ),
-                  ) : SizedBox.shrink(),
-                  Spacer(),
-                  HintTextCard(S.of(context).groupPairingVerificationPromptWithSize(widget._uiState.comm?.participantCount.toString() ?? "")),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: ElevatedButton.icon(
-                            icon: Icon(Icons.close_rounded),
-                            label: Text(S.of(context).dialogButtonNo),
-                            onPressed: () {
-                              _protocolInteractionWrapper(() async =>
-                                  await widget._uiState.protocol!
-                                      .userInputApprove(false));
-                            },
-                          ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                          child: FilledButton.icon(
-                            icon: Icon(Icons.check_rounded),
-                            label: Text(S.of(context).dialogButtonYes),
-                            onPressed: () {
-                              _protocolInteractionWrapper(() async =>
-                                  await widget._uiState.protocol!
-                                      .userInputApprove(true));
-                            },
-                          )
-                      ),
-                    ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Spacer(),
+                SizeAnimatedIcon(
+                    key: _animatedIconKey,
+                    beginSize: 0,
+                    endSize: (MediaQuery.of(context).size.height * 0.33).round(),
+                    duration: const Duration(milliseconds: 700),
+                    iconData: Icons.lock,
+                    iconColor: Colors.blue),
+                widget._uiState.isCoordinator == true ? Center(
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.multitrack_audio_rounded),
+                    onPressed: () => widget._uiState.protocol!.retransmitVerificationAudio(),
+                    label: Text(S
+                        .of(context)
+                        .groupPairingVerificationRetransmissionButton),
                   ),
-                  const SizedBox(height: 20),
-                ],
-              ),
+                ) : const SizedBox.shrink(),
+                const Spacer(),
+                HintTextCard(S.of(context).groupPairingVerificationPromptWithSize(widget._uiState.comm?.participantCount.toString() ?? "")),
+                const SizedBox(height: 20),
+                ButtonRow(
+                  primaryText: S.of(context).dialogButtonYes,
+                  primaryIcon: Icons.check_rounded,
+                  primaryAction: (context) {
+                    _protocolInteractionWrapper(() async {
+                      await widget._uiState.protocol!.userInputApprove(true);
+                    });
+                  },
+                  secondaryText: S.of(context).dialogButtonNo,
+                  secondaryIcon: Icons.close_rounded,
+                  secondaryAction: (context) {
+                    _protocolInteractionWrapper(() async {
+                      await widget._uiState.protocol!.userInputApprove(false);
+                    });
+                  },
+                ),
+                const SizedBox(height: 20),
+              ],
             )
           ],
         ));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pairsonic/features/pairing/success_list_data.dart';
 import 'package:pairsonic/generated/l10n.dart';
 import 'package:pairsonic/helper/ui/animated_icon.dart';
+import 'package:pairsonic/helper/ui/button_row.dart';
 import 'package:pairsonic/helper/ui/hint_text_card.dart';
 import 'package:pairsonic/router/app_routes.dart';
 
@@ -51,7 +52,9 @@ class _PairingSuccessWidgetState extends State<PairingSuccessWidget> {
           return;
         }
         await _data.importSelected();
-        Navigator.of(context).pop();
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       },
       child: Scaffold(
         body: Padding(
@@ -112,36 +115,31 @@ class _PairingSuccessWidgetState extends State<PairingSuccessWidget> {
               const SizedBox(height: 12),
               HintTextCard(S.of(context).groupPairingSuccessText),
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                      child: ElevatedButton.icon(
-                        icon: Icon(Icons.close_rounded),
-                          onPressed: () async {
-                            if (!await _data.canPopNavigationFromCancel(context)) {
-                              return;
-                            }
-                            Navigator.of(context, rootNavigator: true).popUntil(
-                                    (route) =>
-                                route.settings.name == AppRoutes.homePage);
-                          },
-                          label:
-                              Text(S.of(context).groupPairingSuccessCancel))),
-                  const SizedBox(width: 10),
-                  Expanded(
-                      child: FilledButton.icon(
-                        icon: Icon(Icons.check_rounded),
-                          onPressed: () async {
-                            if (!await _data.canPopNavigation(context)) {
-                              return;
-                            }
-                            await _data.importSelected();
-                            Navigator.of(context, rootNavigator: true).popAndPushNamed(AppRoutes.contacts);
-                          },
-                          label:
-                              Text(S.of(context).groupPairingSuccessAddContacts))),
-                ],
-              )
+              ButtonRow(
+                primaryText: S.of(context).groupPairingSuccessAddContacts,
+                primaryIcon: Icons.check_rounded,
+                primaryAction: (context) async {
+                  if (!await _data.canPopNavigation(context)) {
+                    return;
+                  }
+                  await _data.importSelected();
+                  if (context.mounted) {
+                    Navigator.of(context, rootNavigator: true)
+                        .popAndPushNamed(AppRoutes.contacts);
+                  }
+                },
+                secondaryText: S.of(context).groupPairingSuccessCancel,
+                secondaryIcon: Icons.close_rounded,
+                secondaryAction: (context) async {
+                  if (!await _data.canPopNavigationFromCancel(context)) {
+                    return;
+                  }
+                  if (context.mounted) {
+                    Navigator.of(context, rootNavigator: true)
+                        .popUntil((route) => route.settings.name == AppRoutes.homePage);
+                  }
+                },
+              ),
             ],
           ),
         ),

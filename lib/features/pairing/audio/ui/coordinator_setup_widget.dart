@@ -172,46 +172,46 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
   }
 
   Widget buildButtonRow(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ElevatedButton.icon(
-            icon: Icon(Icons.arrow_back_rounded),
-            label: Text(S.of(context).groupPairingSetupBack),
-            onPressed: () {
-              switch (_currentStep) {
-                case GPCoordinatorSetupStep.participantCountSelection:
-                  _pairingProgressSink.add(0.05);
-                  Navigator.of(context).pop();
-                  break;
-                case GPCoordinatorSetupStep.ready:
-                  _pairingProgressSink.add(0.1);
-                  setState(() {
-                    numParticipants = 0;
-                    _currentStep =
-                        GPCoordinatorSetupStep.participantCountSelection;
-                  });
-                  break;
-              }
-            },
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: FilledButton(
-            onPressed: numParticipants < 2 ? null : () async {
-              switch (_currentStep) {
-                case GPCoordinatorSetupStep.participantCountSelection:
-                  _pairingProgressSink.add(0.15);
-                  setState(() {
-                    _currentStep = GPCoordinatorSetupStep.ready;
-                  });
-                  break;
-                case GPCoordinatorSetupStep.ready:
-                  bool res = await _initGroupPairingProtocol();
-                  if (res && context.mounted) {
-                    Navigator.of(context)
-                        .pushNamed(GroupPairingAudioRoutes.running);
+    return ButtonRow(
+      primaryText: _currentStep == GPCoordinatorSetupStep.ready
+          ? S.of(context).groupPairingSetupGo
+          : S.of(context).groupPairingSetupConfirm,
+      primaryIcon: Icons.arrow_forward_rounded,
+      primaryAction: numParticipants < 2 ? null : (context) async {
+        switch (_currentStep) {
+          case GPCoordinatorSetupStep.participantCountSelection:
+            _pairingProgressSink.add(0.15);
+            _appBarTitleSink.add("Ready");
+            setState(() {
+              _currentStep = GPCoordinatorSetupStep.ready;
+            });
+          case GPCoordinatorSetupStep.ready:
+            _appBarTitleSink.add("Waiting...");
+            bool res = await _initGroupPairingProtocol();
+            if (res && context.mounted) {
+              Navigator.of(context)
+                  .pushNamed(GroupPairingAudioRoutes.running);
+            }
+        }
+      },
+      secondaryText: S.of(context).groupPairingSetupBack,
+      secondaryIcon: Icons.arrow_back_rounded,
+      secondaryAction: (context) {
+        switch (_currentStep) {
+          case GPCoordinatorSetupStep.participantCountSelection:
+            _pairingProgressSink.add(0.05);
+            _appBarTitleSink.add("Ready");
+            Navigator.of(context).pop();
+          case GPCoordinatorSetupStep.ready:
+            _pairingProgressSink.add(0.1);
+            _appBarTitleSink.add(S.of(context).groupPairingSetupGroupSize);
+            setState(() {
+              numParticipants = 0;
+              _currentStep =
+                  GPCoordinatorSetupStep.participantCountSelection;
+            });
+        }
+      },
                   }
                   break;
               }

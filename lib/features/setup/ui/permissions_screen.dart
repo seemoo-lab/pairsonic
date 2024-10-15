@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pairsonic/features/profile/identity_service.dart';
 import 'package:pairsonic/features/setup/services/permission_service.dart';
 import 'package:pairsonic/generated/l10n.dart';
+import 'package:pairsonic/helper/ui/button_row.dart';
 import 'package:pairsonic/router/app_routes.dart';
 import 'package:pairsonic/service_locator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -123,43 +124,29 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: ElevatedButton.icon(
-                            icon: Icon(Icons.arrow_back_rounded),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            label: Text("Back")),
-                        ),
-                        SizedBox(width: 10),
-                        FilledButton(
-                            onPressed: () async {
-                              if (_isPermissionDeniedPermanently) {
-                                await openAppSettings();
-                              } else if (await _requestPermissions()) {
-                                _navigateToNextScreen();
-                              }
-                            },
-                            child: Row(
-                              children: [
-                                Text(_isPermissionDeniedPermanently
-                                    ? S.of(context) .permissionScreenButtonTextOpenSettings
-                                    : S.of(context).permissionScreenButtonTextRequestPermissions),
-                                SizedBox(width: 10),
-                                Icon(Icons.arrow_forward_rounded)
-                              ],
-                            )),
-                      ],
+                    child: ButtonRow(
+                      primaryText: _isPermissionDeniedPermanently
+                          ? S.of(context).permissionScreenButtonTextOpenSettings
+                          : S.of(context).permissionScreenButtonTextRequestPermissions,
+                      primaryIcon: Icons.arrow_forward_rounded,
+                      primaryAction: (context) async {
+                        if (_isPermissionDeniedPermanently) {
+                          await openAppSettings();
+                        } else if (await _requestPermissions()) {
+                          debugPrint("navigating to next screen");
+                          _navigateToNextScreen();
+                        }
+                      },
+                      secondaryText: S.of(context).generalButtonBack,
+                      secondaryIcon: Icons.arrow_back_rounded,
+                      secondaryAction: (context) => Navigator.of(context).pop(),
                     ),
                   ),
                 ],
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         }
     );
