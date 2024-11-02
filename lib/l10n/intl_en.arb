@@ -176,6 +176,7 @@
   "permissionScreenFooterText": "If you have already granted these permissions, please check the System Settings again.\nThere, go to the \"Permissions\" menu and grant access to the three permissions described above.\n",
   "permissionScreenButtonTextRequestPermissions": "Grant permissions",
   "permissionScreenButtonTextOpenSettings": "Open settings",
+  "permissionScreenLocationServiceMessage": "Location Services must be enabled in system settings in order for the contact exchange to work.",
 
   "settingsUltrasoundMicSupportTrue": "Microphone supports Ultrasound",
   "settingsUltrasoundMicSupportFalse": "Microphone doesn't support Ultrasound",
@@ -191,5 +192,9 @@
 
   "generalButtonNext": "Next",
   "generalButtonDone": "Done",
-  "generalButtonBack": "Back"
+  "generalButtonBack": "Back",
+
+  "alertLocationServiceTitle": "Location Services disabled",
+  "alertLocationServiceMessage": "Please open your device's settings and enable location services in order for pairing to work. We won't use your location, but they have to be enabled due to technical limitations.",
+  "alertLocationServiceButton": "Open Settings"
 }

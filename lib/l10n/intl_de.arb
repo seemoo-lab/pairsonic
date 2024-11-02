@@ -176,6 +176,7 @@
   "permissionScreenFooterText": "Wenn Sie die Berechtigungen schon erteilt hatten, prüfen Sie bitte nochmal die Systemeinstellungen.\nGehen Sie dort in das \"Berechtigungen\"-Menü und erlauben Sie den Zugriff auf die drei oben beschriebenen Berechtigungen.\n",
   "permissionScreenButtonTextRequestPermissions": "Berechtigungen erteilen",
   "permissionScreenButtonTextOpenSettings": "Einstellungen öffnen",
+  "permissionScreenLocationServiceMessage": "Die Standort-Dienste müssen in den Systemeinstellungen aktiviert sein, damit der Kontaktaustausch funktioniert.",
 
   "settingsUltrasoundMicSupportTrue": "Mikrofon unterstützt Ultraschall",
   "settingsUltrasoundMicSupportFalse": "Mikrofon unterstützt Ultraschall nicht",
@@ -191,5 +192,9 @@
 
   "generalButtonNext": "Weiter",
   "generalButtonDone": "Fertig",
-  "generalButtonBack": "Zurück"
+  "generalButtonBack": "Zurück",
+
+  "alertLocationServiceTitle": "Standort deaktiviert",
+  "alertLocationServiceMessage": "Bitte öffnen Sie die Einstellungen und aktivieren Sie die Standort-Dienste, damit der Kontaktaustausch funktionieren kann. Wir verwenden Ihren Standort nicht, aber aufgrund technischer Limitierungen müssen Standort-Dienste aktiviert sein.",
+  "alertLocationServiceButton": "Einstellungen öffnen"
 }

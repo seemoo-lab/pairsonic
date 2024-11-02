@@ -37,64 +37,33 @@ class _GPRoleSelectionWidgetState extends State<GPRoleSelectionWidget> {
     );
   }
 
-  void _navigateToNext(bool isCoordinator) {
+  Future<void> _navigateToNext(bool isCoordinator) async {
     widget._uiState.isCoordinator = isCoordinator;
+
+
+    if (!(await _checkPairingRequirements())) {
+      final context = this.context;
+      if (!context.mounted) {
+        return;
+      }
+      await LocationServiceHelper.instance.showLocationServiceAlert(context);
+      return;
+    }
+
+    final context = this.context;
+    if (!context.mounted) {
+      return;
+    }
     if (isCoordinator) {
       Navigator.of(context).pushNamed(GroupPairingAudioRoutes.coordinatorSetup);
     } else {
       Navigator.of(context).pushNamed(GroupPairingAudioRoutes.running);
     }
   }
-}
 
-class RoleSelectionCardWidget extends StatelessWidget {
-  final String assetName;
-  final String title;
-  final String description;
-  final Function() action;
-
-  RoleSelectionCardWidget(
-      {required this.assetName,
-      required this.title,
-      required this.description,
-      required this.action});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Card(
-        clipBehavior: Clip.hardEdge,
-        child: InkWell(
-          onTap: action,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                children: [
-                  Spacer(),
-                  SvgPicture(
-                    SvgAssetLoader(
-                      assetName,
-                      colorMapper: SvgColorReplacer({
-                        Colors.black: Theme.of(context).colorScheme.onSurface,
-                      })
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.4,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Text(description,
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  Spacer()
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+  Future<bool> _checkPairingRequirements() async {
+    final locationServiceEnabled = await LocationServiceHelper.instance.isLocationServicesEnabled();
+    debugPrint("Location Service enabled: $locationServiceEnabled");
+    return locationServiceEnabled;
   }
 }

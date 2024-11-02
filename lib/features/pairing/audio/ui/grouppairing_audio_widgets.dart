@@ -9,6 +9,7 @@ import 'package:pairsonic/constants.dart';
 import 'package:pairsonic/features/pairing/audio/grouppairing_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pairsonic/helper/location_service_helper.dart';
 import 'package:pairsonic/helper/ui/button_row.dart';
 import 'package:pairsonic/helper/ui/gui_constants.dart';
 import 'package:pairsonic/helper/ui/hint_text_card.dart';

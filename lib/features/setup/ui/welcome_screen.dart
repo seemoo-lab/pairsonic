@@ -3,12 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pairsonic/features/profile/identity_service.dart';
 import 'package:pairsonic/features/setup/services/permission_service.dart';
 import 'package:pairsonic/generated/l10n.dart';
+import 'package:pairsonic/helper/location_service_helper.dart';
 import 'package:pairsonic/router/app_routes.dart';
 import 'package:pairsonic/service_locator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen();
+  WelcomeScreen({super.key});
 
   final IdentityService _identityService = getIt();
 
@@ -57,13 +58,16 @@ class WelcomeScreen extends StatelessWidget {
             ),
             FilledButton(
               onPressed: () async {
-                if (await PermissionService.instance.checkPermissions().isGranted) {
+                if (await PermissionService.instance.checkPermissions().isGranted && await LocationServiceHelper.instance.isLocationServicesEnabled()) {
                   if (_identityService.identitySet) {
+                    // ignore: use_build_context_synchronously
                     Navigator.of(context).pushReplacementNamed(AppRoutes.homePage);
                   } else {
+                    // ignore: use_build_context_synchronously
                     Navigator.of(context).pushNamed(AppRoutes.profileCreation);
                   }
                 } else {
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamed(AppRoutes.permissions);
                 }
               },

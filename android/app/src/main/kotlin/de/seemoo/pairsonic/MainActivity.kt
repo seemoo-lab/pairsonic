@@ -1,36 +1,37 @@
 package de.seemoo.pairsonic
 
-import android.app.PendingIntent
-import android.content.Intent
 import android.util.Log
-import androidx.annotation.NonNull
+import de.seemoo.pairsonic.channels.AudioControlChannel
+import de.seemoo.pairsonic.channels.LocationServiceChannel
+import de.seemoo.pairsonic.channels.WifiP2pChannel
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.StandardMethodCodec
-import de.seemoo.pairsonic.channels.*
+
+const val CHANNEL_AUDIOCONTROL = "audiocontrol"
+const val CHANNEL_GPWIFIP2P = "gp_wifip2p"
+const val CHANNEL_LOCATION_SERVICE = "location_service"
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL_AUDIOCONTROL = "audiocontrol"
-    private val CHANNEL_GPWIFIP2P = "gp_wifip2p"
+    private var wifiP2pChannel: WifiP2pChannel? = null
+    private var audioControlChannel: AudioControlChannel? = null
+    private var locationServiceChannel: LocationServiceChannel? = null
 
-    private val TAG = "MainActivity"
+    private val logTag = "MainActivity"
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume")
-        val intent = Intent(context, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        Log.d(logTag, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "onPause")
+        Log.d(logTag, "onPause")
     }
 
-    private var audioControlChannel: AudioControlChannel? = null;
-
-    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         val taskQueue = flutterEngine.dartExecutor.binaryMessenger.makeBackgroundTaskQueue()
 
@@ -46,13 +47,21 @@ class MainActivity : FlutterActivity() {
         )
 
         // wifip2pimplementation audiocontrol implementation
-        val wifiP2pChannel = WifiP2pChannel(
+        wifiP2pChannel = WifiP2pChannel(
             this,
             MethodChannel(
                 flutterEngine.dartExecutor.binaryMessenger,
                 CHANNEL_GPWIFIP2P,
                 StandardMethodCodec.INSTANCE,
                 taskQueue
+            )
+        )
+
+        locationServiceChannel = LocationServiceChannel(
+            this,
+            MethodChannel(
+                flutterEngine.dartExecutor.binaryMessenger,
+                CHANNEL_LOCATION_SERVICE
             )
         )
     }

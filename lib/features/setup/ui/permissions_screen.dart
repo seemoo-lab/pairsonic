@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pairsonic/features/profile/identity_service.dart';
 import 'package:pairsonic/features/setup/services/permission_service.dart';
 import 'package:pairsonic/generated/l10n.dart';
+import 'package:pairsonic/helper/location_service_helper.dart';
 import 'package:pairsonic/helper/ui/button_row.dart';
 import 'package:pairsonic/router/app_routes.dart';
 import 'package:pairsonic/service_locator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionsScreen extends StatefulWidget {
-  const PermissionsScreen();
+  const PermissionsScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _PermissionsScreenState();
@@ -18,8 +19,10 @@ class _PermissionsScreenState extends State<PermissionsScreen>
     with WidgetsBindingObserver {
   final IdentityService _identityService = getIt<IdentityService>();
   final PermissionService _permissionService = PermissionService.instance;
+  final LocationServiceHelper _locationService = LocationServiceHelper.instance;
 
   bool _isPermissionDeniedPermanently = false;
+  bool _isLocationServiceEnabled = false;
 
   @override
   void initState() {
@@ -37,6 +40,11 @@ class _PermissionsScreenState extends State<PermissionsScreen>
     _permissionService.checkPermissions().then((value) {
       setState(() {
         this._isPermissionDeniedPermanently = value.isPermanentlyDenied;
+      });
+    });
+    _locationService.isLocationServicesEnabled().then((value) {
+      setState(() {
+        this._isLocationServiceEnabled = value;
       });
     });
   }
@@ -108,7 +116,18 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                                 }).toList(),
                               ),
                             ),
-                            Divider(),
+                            if (!_isLocationServiceEnabled)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Divider(),
+                                  Text(
+                                    S.of(context).permissionScreenLocationServiceMessage,
+                                    textScaler: const TextScaler.linear(1.1),
+                                  ),
+                                ],
+                              ),
+                            const Divider(),
                             Text(
                               S.of(context).permissionScreenFooterText,
                               textScaler: TextScaler.linear(1.1),
@@ -168,19 +187,33 @@ class _PermissionsScreenState extends State<PermissionsScreen>
       _isPermissionDeniedPermanently = status.isPermanentlyDenied;
     });
 
-    return status.isGranted;
+    if (!(await _locationService.isLocationServicesEnabled())) {
+      final context = this.context;
+      if (context.mounted) {
+        _locationService.showLocationServiceAlert(context);
+      }
+    }
+
+    return status.isGranted && (await _locationService.isLocationServicesEnabled());
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print(state);
     if (state == AppLifecycleState.resumed) {
-      _permissionService.checkPermissions().then((value) {
-        setState(() {
-          this._isPermissionDeniedPermanently = value.isPermanentlyDenied;
-          if (value.isGranted) {
-            _navigateToNextScreen();
-          }
+      _permissionService.checkPermissions().then((permissionStatus) {
+        _locationService.isLocationServicesEnabled().then((locationEnabled) {
+          setState(() {
+            this._isPermissionDeniedPermanently = permissionStatus.isPermanentlyDenied;
+            this._isLocationServiceEnabled = locationEnabled;
+            if (permissionStatus.isGranted) {
+              if (_isLocationServiceEnabled) {
+                _navigateToNextScreen();
+              } else {
+                _locationService.showLocationServiceAlert(context);
+              }
+            }
+          });
         });
       });
     }
