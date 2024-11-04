@@ -4,6 +4,7 @@ import 'package:pairsonic/features/profile/identity_service.dart';
 import 'package:pairsonic/features/settings/settings_interface.dart';
 import 'package:pairsonic/features/setup/ui/welcome_screen.dart';
 import 'package:pairsonic/helper/gui_utility_interface.dart';
+import 'package:pairsonic/main.dart';
 import 'package:pairsonic/generated/l10n.dart';
 import 'package:pairsonic/service_locator.dart';
 
@@ -41,6 +42,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget getBasicSettings() {
     return Column(
       children: [
+        listSetting(
+          label: S.of(context).language,
+          key: "language",
+          values: {'de': 'Deutsch', 'en': 'English'},
+          onSelected: (value) {
+            PairSonicApp.setLanguage(context, value);
+          },
+        ),
         ElevatedButton(
             onPressed: () async {
               Navigator.push(
@@ -65,6 +74,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         FutureBuilder(future: AudioControlService.doesSpeakerSupportNearUltrasound(), builder: (context, snapshot) {
           return buildUltrasoundCheckRow(snapshot, S.of(context).settingsUltrasoundSpeakerSupportTrue, S.of(context).settingsUltrasoundSpeakerSupportFalse);
         }),
+        listSetting(
+            label: S.of(context).groupPairingAudioChannelBackend,
+            key: "gpAudioChannelBackend",
+            values: {'ggwave': 'ggwave'},
+            onSelected: (value) => null,
+            fallback: 'ggwave'),
       ],
     );
   }
@@ -80,13 +95,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 supported ? Icons.check : Icons.close,
                 color: supported ? Colors.green : Colors.red,
               ),
-              SizedBox(width: 8.0),
+              const SizedBox(width: 8.0),
               Text(supported ? successText : failText),
             ]
         ),
       );
     }
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 
   Widget getAdminSettings() {

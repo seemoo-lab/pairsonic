@@ -162,4 +162,11 @@ class GgwaveAudioChannelService extends AudioChannelService<Uint8List> {
   Future<List<Uint8List>> getAllReceivedData() async {
     return _receivedData;
   }
+
+  @override
+  Future<void> dispose() async {
+    await stopReceiving();
+    await stopTransmission();
+    // TODO: do more?
+  }
 }

@@ -64,7 +64,7 @@ class GroupPairingProtocol<T> {
   /// Initialized in SEND_COMMITMENT.
   late final GPCommitment _commitment;
 
-  Uint8List? _sharedGroupKey = null;
+  Uint8List? _sharedGroupKey;
 
   final Map<int, Uint8List> _encryptedSecrets = {};
 
@@ -387,6 +387,8 @@ class GroupPairingProtocol<T> {
 
     if (_uidReceivedMatchReveal.length == _comm.participantCount) {
       _updateState(GroupPairingState.secretSharing, processNext: true);
+      _timeoutStopwatch.reset();
+      _timeoutStopwatch.start();
     } else if (_timeoutStopwatch.elapsedMilliseconds >
         settings.matchRevealCollectTimeoutMs) {
       _timeout();
@@ -409,6 +411,9 @@ class GroupPairingProtocol<T> {
   ///
   /// The exchange scales linearly (O(n)) with the number of participants.
   Future<void> _stepSECRET_SHARING() async {
+    if (_timeoutStopwatch.elapsedMilliseconds > settings.secretSharingTimeoutMs) {
+      _timeout();
+    }
     if (_sortedReveals.isEmpty) {
       _sortedReveals = _receivedValidMainReveals.values
           .map((e) => MapEntry(e.getCommitmentHash(), e))

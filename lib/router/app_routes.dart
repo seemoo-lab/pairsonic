@@ -15,4 +15,7 @@ class AppRoutes {
   static const String profileCreation = '${_baseRoute}ProfileCreation';
   static const String welcome = '${_baseRoute}Welcome';
   static const String settings = '${_baseRoute}Settings';
+  static const String error = '${_baseRoute}Error';
+
+  static const String pairingDebug = '$pairing/DebugPairing';
 }

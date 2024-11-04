@@ -62,18 +62,18 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
                             Text(
                               S.of(context).permissionScreenIntroText,
-                              textScaler: TextScaler.linear(1.25),
+                              textScaler: const TextScaler.linear(1.25),
                             ),
-                            Divider(),
+                            const Divider(),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 4.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,14 +82,14 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                                   return Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "•",
                                         textScaler: TextScaler.linear(2.0),
                                       ),
-                                      SizedBox(width: 10),
+                                      const SizedBox(width: 10),
                                       Expanded(
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: RichText(
                                             text: TextSpan(
@@ -99,7 +99,7 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                                                 children: [
                                                   TextSpan(
                                                       text: permissionDescription.$1,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight: FontWeight
                                                               .bold)),
                                                   TextSpan(
@@ -107,7 +107,7 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                                                           .$2)
                                                 ]
                                             ),
-                                            textScaler: TextScaler.linear(1.1),
+                                            textScaler: const TextScaler.linear(1.1),
                                           ),
                                         ),
                                       )
@@ -130,7 +130,7 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                             const Divider(),
                             Text(
                               S.of(context).permissionScreenFooterText,
-                              textScaler: TextScaler.linear(1.1),
+                              textScaler: const TextScaler.linear(1.1),
                               style: TextStyle(
                                   fontWeight: _isPermissionDeniedPermanently
                                       ? FontWeight.bold

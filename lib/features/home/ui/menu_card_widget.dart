@@ -20,16 +20,15 @@ class MenuCard extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               Icon(
                 icon,
                 size: 64,
               ),
               Text(
                 title,
-                textAlign: TextAlign.center,
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
         ),

@@ -14,15 +14,15 @@ import 'package:pairsonic/service_locator.dart';
 /// {@category Widgets}
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget(
-    this.user, {
-    this.edit = false,
-    this.editMode = false,
-    this.showVerification = false,
-    this.pairingArguments,
-    this.onSave,
-    this.onInput,
-    super.key,
-  });
+      this.user, {
+        this.edit = false,
+        this.editMode = false,
+        this.showVerification = false,
+        this.pairingArguments,
+        this.onSave,
+        this.onInput,
+        super.key,
+      });
   final User user;
   final bool edit;
   final bool editMode;
@@ -118,59 +118,59 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
     Widget userinfo = _editMode
         ? Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: S.of(context).name,
-                  ),
-                  onChanged: (value) {
-                    _onInput?.call(nameController.text, bioController.text);
-                    widget.user.name = value;
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return S.of(context).enterName;
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: bioController,
-                  decoration: InputDecoration(
-                    labelText: S.of(context).bio,
-                  ),
-                  onChanged: (value) {
-                    _onInput?.call(nameController.text, bioController.text);
-                    widget.user.bio = value;
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return S.of(context).enterBio;
-                    }
-                    return null;
-                  },
-                )
-              ],
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: nameController,
+            decoration: InputDecoration(
+              labelText: S.of(context).name,
             ),
+            onChanged: (value) {
+              _onInput?.call(nameController.text, bioController.text);
+              widget.user.name = value;
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return S.of(context).enterName;
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: bioController,
+            decoration: InputDecoration(
+              labelText: S.of(context).bio,
+            ),
+            onChanged: (value) {
+              _onInput?.call(nameController.text, bioController.text);
+              widget.user.bio = value;
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return S.of(context).enterBio;
+              }
+              return null;
+            },
           )
+        ],
+      ),
+    )
         : Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                widget.user.name,
-                textScaler: const TextScaler.linear(2.0),
-              ),
-              Text(
-                widget.user.bio,
-                textScaler: const TextScaler.linear(1.0),
-                textAlign: TextAlign.center,
-              )
-            ],
-          );
+      //mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          widget.user.name,
+          textScaler: const TextScaler.linear(2.0),
+        ),
+        Text(
+          widget.user.bio,
+          textScaler: const TextScaler.linear(1.0),
+          textAlign: TextAlign.center,
+        )
+      ],
+    );
 
 
 

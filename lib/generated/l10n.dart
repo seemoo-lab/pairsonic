@@ -18,17 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,8 +44,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -62,62 +67,32 @@ class S {
 
   /// `PairSonic`
   String get appName {
-    return Intl.message(
-      'PairSonic',
-      name: 'appName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('PairSonic', name: 'appName', desc: '', args: []);
   }
 
   /// `Profile`
   String get profile {
-    return Intl.message(
-      'Profile',
-      name: 'profile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
   }
 
   /// `Contact Exchange`
   String get pair {
-    return Intl.message(
-      'Contact Exchange',
-      name: 'pair',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Contact Exchange', name: 'pair', desc: '', args: []);
   }
 
   /// `Contacts`
   String get contacts {
-    return Intl.message(
-      'Contacts',
-      name: 'contacts',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Contacts', name: 'contacts', desc: '', args: []);
   }
 
   /// `Settings`
   String get settings {
-    return Intl.message(
-      'Settings',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
   }
 
   /// `Submit`
   String get submit {
-    return Intl.message(
-      'Submit',
-      name: 'submit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Submit', name: 'submit', desc: '', args: []);
   }
 
   /// `No pairing data received`
@@ -142,32 +117,17 @@ class S {
 
   /// `Cancel`
   String get cancel {
-    return Intl.message(
-      'Cancel',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
   /// `Confirm`
   String get confirm {
-    return Intl.message(
-      'Confirm',
-      name: 'confirm',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
   }
 
   /// `save`
   String get save {
-    return Intl.message(
-      'save',
-      name: 'save',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('save', name: 'save', desc: '', args: []);
   }
 
   /// `No Contacts yet.`
@@ -182,12 +142,7 @@ class S {
 
   /// `Language`
   String get language {
-    return Intl.message(
-      'Language',
-      name: 'language',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Language', name: 'language', desc: '', args: []);
   }
 
   /// `Advanced Settings`
@@ -262,52 +217,27 @@ class S {
 
   /// `Name`
   String get name {
-    return Intl.message(
-      'Name',
-      name: 'name',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Name', name: 'name', desc: '', args: []);
   }
 
   /// `Bio`
   String get bio {
-    return Intl.message(
-      'Bio',
-      name: 'bio',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Bio', name: 'bio', desc: '', args: []);
   }
 
   /// `Successful`
   String get successful {
-    return Intl.message(
-      'Successful',
-      name: 'successful',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Successful', name: 'successful', desc: '', args: []);
   }
 
   /// `Failed`
   String get failed {
-    return Intl.message(
-      'Failed',
-      name: 'failed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Failed', name: 'failed', desc: '', args: []);
   }
 
   /// `Welcome`
   String get welcome {
-    return Intl.message(
-      'Welcome',
-      name: 'welcome',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Welcome', name: 'welcome', desc: '', args: []);
   }
 
   /// `Show welcome screen`
@@ -342,12 +272,7 @@ class S {
 
   /// `Start!`
   String get go {
-    return Intl.message(
-      'Start!',
-      name: 'go',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Start!', name: 'go', desc: '', args: []);
   }
 
   /// `Please enter a name`
@@ -392,12 +317,7 @@ class S {
 
   /// `Name`
   String get labelName {
-    return Intl.message(
-      'Name',
-      name: 'labelName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Name', name: 'labelName', desc: '', args: []);
   }
 
   /// `Bitte genter an ID`
@@ -422,42 +342,22 @@ class S {
 
   /// `ID`
   String get labelId {
-    return Intl.message(
-      'ID',
-      name: 'labelId',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('ID', name: 'labelId', desc: '', args: []);
   }
 
   /// `Add contact`
   String get addContact {
-    return Intl.message(
-      'Add contact',
-      name: 'addContact',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add contact', name: 'addContact', desc: '', args: []);
   }
 
   /// `Continue`
   String get continueText {
-    return Intl.message(
-      'Continue',
-      name: 'continueText',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Continue', name: 'continueText', desc: '', args: []);
   }
 
   /// `Switch`
   String get switchText {
-    return Intl.message(
-      'Switch',
-      name: 'switchText',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Switch', name: 'switchText', desc: '', args: []);
   }
 
   /// `Error during Processing.\nTry to move the phones closer or try again in a quiter environment.`
@@ -592,12 +492,7 @@ class S {
 
   /// `OK`
   String get dialogButtonOK {
-    return Intl.message(
-      'OK',
-      name: 'dialogButtonOK',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('OK', name: 'dialogButtonOK', desc: '', args: []);
   }
 
   /// `CANCEL`
@@ -612,52 +507,27 @@ class S {
 
   /// `GRANT`
   String get dialogButtonGrant {
-    return Intl.message(
-      'GRANT',
-      name: 'dialogButtonGrant',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('GRANT', name: 'dialogButtonGrant', desc: '', args: []);
   }
 
   /// `LEAVE`
   String get dialogButtonLeave {
-    return Intl.message(
-      'LEAVE',
-      name: 'dialogButtonLeave',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('LEAVE', name: 'dialogButtonLeave', desc: '', args: []);
   }
 
   /// `STAY`
   String get dialogButtonStay {
-    return Intl.message(
-      'STAY',
-      name: 'dialogButtonStay',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('STAY', name: 'dialogButtonStay', desc: '', args: []);
   }
 
   /// `Yes`
   String get dialogButtonYes {
-    return Intl.message(
-      'Yes',
-      name: 'dialogButtonYes',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Yes', name: 'dialogButtonYes', desc: '', args: []);
   }
 
   /// `No`
   String get dialogButtonNo {
-    return Intl.message(
-      'No',
-      name: 'dialogButtonNo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('No', name: 'dialogButtonNo', desc: '', args: []);
   }
 
   /// `Participant`
@@ -740,10 +610,10 @@ class S {
     );
   }
 
-  /// `Group size:`
+  /// `Group size`
   String get groupPairingSetupGroupSize {
     return Intl.message(
-      'Group size:',
+      'Group size',
       name: 'groupPairingSetupGroupSize',
       desc: '',
       args: [],
@@ -990,10 +860,10 @@ class S {
     );
   }
 
-  /// `A timeout occured while waiting. This can happen when a participant looses connectivity or is too slow when confirming the user dialog.`
+  /// `A timeout occured while waiting. This can happen when a participant loses connectivity or doesn't confirm a dialog within a certain time.`
   String get groupPairingErrTimeoutDescription {
     return Intl.message(
-      'A timeout occured while waiting. This can happen when a participant looses connectivity or is too slow when confirming the user dialog.',
+      'A timeout occured while waiting. This can happen when a participant loses connectivity or doesn\'t confirm a dialog within a certain time.',
       name: 'groupPairingErrTimeoutDescription',
       desc: '',
       args: [],
@@ -1010,10 +880,10 @@ class S {
     );
   }
 
-  /// `A security error occured. This can indicate that someone tried to meddle with the group pairing process. Please ensure that no unintended participants are present and try the pairing process again over another network.`
+  /// `A possible security issue has been detected and prevented. This can indicate that someone tried to meddle with the group pairing process. Please ensure that no unintended participants are present and try the pairing process again.`
   String get groupPairingErrSecurityDescription {
     return Intl.message(
-      'A security error occured. This can indicate that someone tried to meddle with the group pairing process. Please ensure that no unintended participants are present and try the pairing process again over another network.',
+      'A possible security issue has been detected and prevented. This can indicate that someone tried to meddle with the group pairing process. Please ensure that no unintended participants are present and try the pairing process again.',
       name: 'groupPairingErrSecurityDescription',
       desc: '',
       args: [],
@@ -1040,26 +910,6 @@ class S {
     );
   }
 
-  /// `Communication Error`
-  String get groupPairingErrCentCommName {
-    return Intl.message(
-      'Communication Error',
-      name: 'groupPairingErrCentCommName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `We are having trouble reaching the server used for communication. Please check whether you have Internet access and retry. If you keep getting this error, please try another exchange mode.`
-  String get groupPairingErrCentCommDescription {
-    return Intl.message(
-      'We are having trouble reaching the server used for communication. Please check whether you have Internet access and retry. If you keep getting this error, please try another exchange mode.',
-      name: 'groupPairingErrCentCommDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Wi-Fi Error`
   String get groupPairingErrWifiName {
     return Intl.message(
@@ -1070,10 +920,10 @@ class S {
     );
   }
 
-  /// `We are having problems setting up Wi-Fi and connecting to the other participants. Please ensure that you have enabled Wi-Fi on your device. If the error persists, please try another exchange mode.`
+  /// `We are having problems setting up Wi-Fi and connecting to the other participants. Please ensure that Wi-Fi is enabled on your device, however, you don't need to have an Internet connection. If the error persists, please try restarting the app.`
   String get groupPairingErrWifiDescription {
     return Intl.message(
-      'We are having problems setting up Wi-Fi and connecting to the other participants. Please ensure that you have enabled Wi-Fi on your device. If the error persists, please try another exchange mode.',
+      'We are having problems setting up Wi-Fi and connecting to the other participants. Please ensure that Wi-Fi is enabled on your device, however, you don\'t need to have an Internet connection. If the error persists, please try restarting the app.',
       name: 'groupPairingErrWifiDescription',
       desc: '',
       args: [],
@@ -1232,12 +1082,7 @@ class S {
 
   /// `Done!`
   String get groupPairingDone {
-    return Intl.message(
-      'Done!',
-      name: 'groupPairingDone',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Done!', name: 'groupPairingDone', desc: '', args: []);
   }
 
   /// `Group of {size} people`
@@ -1510,6 +1355,16 @@ class S {
     );
   }
 
+  /// `Location Services must be enabled in system settings in order for the contact exchange to work.`
+  String get permissionScreenLocationServiceMessage {
+    return Intl.message(
+      'Location Services must be enabled in system settings in order for the contact exchange to work.',
+      name: 'permissionScreenLocationServiceMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Microphone supports Ultrasound`
   String get settingsUltrasoundMicSupportTrue {
     return Intl.message(
@@ -1602,29 +1457,44 @@ class S {
 
   /// `Next`
   String get generalButtonNext {
-    return Intl.message(
-      'Next',
-      name: 'generalButtonNext',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Next', name: 'generalButtonNext', desc: '', args: []);
   }
 
   /// `Done`
   String get generalButtonDone {
+    return Intl.message('Done', name: 'generalButtonDone', desc: '', args: []);
+  }
+
+  /// `Back`
+  String get generalButtonBack {
+    return Intl.message('Back', name: 'generalButtonBack', desc: '', args: []);
+  }
+
+  /// `Location Services disabled`
+  String get alertLocationServiceTitle {
     return Intl.message(
-      'Done',
-      name: 'generalButtonDone',
+      'Location Services disabled',
+      name: 'alertLocationServiceTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Back`
-  String get generalButtonBack {
+  /// `Please open your device's settings and enable location services in order for pairing to work. We won't use your location, but they have to be enabled due to technical limitations.`
+  String get alertLocationServiceMessage {
     return Intl.message(
-      'Back',
-      name: 'generalButtonBack',
+      'Please open your device\'s settings and enable location services in order for pairing to work. We won\'t use your location, but they have to be enabled due to technical limitations.',
+      name: 'alertLocationServiceMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Settings`
+  String get alertLocationServiceButton {
+    return Intl.message(
+      'Open Settings',
+      name: 'alertLocationServiceButton',
       desc: '',
       args: [],
     );

@@ -32,7 +32,8 @@ class _PairingScreenState extends State<PairingScreen> {
   late PairingMethod _method;
   late PairingArguments? _args;
 
-  StreamController<double> _pairingProgressStream = StreamController();
+  final StreamController<double> _pairingProgressStream = StreamController();
+  final StreamController<String> _appBarTitleStream = StreamController();
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _PairingScreenState extends State<PairingScreen> {
     _method =
         _args != null ? _args!.method : PairingMethodHelper.fromSettings();
     _pairingProgressStream.sink.add(0.05);
+    // _appBarTitleStream.sink.add(_method.readableName(context));
   }
 
   _PairingScreenState();
@@ -89,26 +91,32 @@ class _PairingScreenState extends State<PairingScreen> {
   @override
   Widget build(BuildContext context) {
     Widget pairingWidget = getPairingWidget();
-    return StreamBuilder<double>(
-      stream: _pairingProgressStream.stream,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
+    return StreamBuilder<String>(
+        stream: _appBarTitleStream.stream,
+        builder: (context, appBarTitleSnapshot) {
+          return StreamBuilder<double>(
+              stream: _pairingProgressStream.stream,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final progress = snapshot.data!;
+                return Scaffold(
+                  body: pairingWidget,
+                  appBar: AppBar(
+                    title: Text(appBarTitleSnapshot.data ?? _method.readableName(context)),
+                    bottom: progress > 0.0 ? PreferredSize(
+                      preferredSize: const Size.fromHeight(6.0),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                      ),
+                    ) : const PreferredSize(
+                        preferredSize: Size.zero, child: SizedBox.shrink()),
+                  ),
+                );
+              }
+          );
         }
-        final progress = snapshot.data!;
-        return Scaffold(
-          body: pairingWidget,
-          appBar: AppBar(
-            title: Text('${_method.readableName(context)}'),
-            bottom: progress > 0.0 ? PreferredSize(
-              preferredSize: Size.fromHeight(6.0),
-              child: LinearProgressIndicator(
-                value: progress,
-              ),
-            ) : PreferredSize(preferredSize: Size.zero, child: SizedBox.shrink()),
-          ),
-        );
-      }
     );
   }
 
@@ -116,7 +124,7 @@ class _PairingScreenState extends State<PairingScreen> {
     Widget pairingWidget;
     switch (_method) {
       case PairingMethod.groupAudio:
-        pairingWidget = GroupPairingAudioWidget(_pairingProgressStream.sink);
+        pairingWidget = GroupPairingAudioWidget(_pairingProgressStream.sink, _appBarTitleStream.sink);
         break;
       default:
         throw Exception("PairingScreen_Default_Hit");

@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:messagepack/messagepack.dart';
+import 'package:pairsonic/helper_functions.dart';
 import 'package:pairsonic/service_locator.dart';
 import 'package:typed_data/typed_data.dart';
 
@@ -14,36 +15,6 @@ import 'grouppairing_helper.dart';
 import 'interfaces/grouppairing_communication_interface.dart';
 import 'models/grouppairing_models.dart';
 import 'services/wifi_p2p_service.dart';
-
-/// Converts the given [input] integer into a 4-byte little-endian Uint8Buffer.
-Uint8Buffer _intToBytes(
-  int input,
-) {
-  Uint8Buffer output = Uint8Buffer(4);
-  for (int i = 3; i >= 0; i--) {
-    output[i] = input % 256;
-    input ~/= 256;
-  }
-  return output;
-}
-
-/// Converts a 4-byte Ulittle-endian Uint8Buffer into an integer.
-int _takeInt(Uint8Buffer input) {
-  int output = 0;
-  for (int i = 0; i < 4; i++) {
-    output = output * 256 + input.removeAt(0);
-  }
-  return output;
-}
-
-/// Removes the first [n] elements from [input] and returns them.
-Uint8List _takeN(int n, Uint8Buffer input) {
-  Uint8List output = Uint8List(n);
-  for (int i = 0; i < n; i++) {
-    output[i] = input.removeAt(0);
-  }
-  return output;
-}
 
 /// Implementation of [GroupPairingCommunicationInterface] using
 /// [StorageService] to communicate with the central server.
@@ -85,7 +56,7 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
   /// The received wrong reveals.
   final List<GPMatchWrongReveal> _wrongReveals = [];
 
-  Queue<GPSecretSharingPacket> _receivedEncryptionSecret = Queue();
+  final Queue<GPSecretSharingPacket> _receivedEncryptionSecret = Queue();
 
   GPWifiP2pCommunication(this._participantCount, this._isClient);
 
@@ -442,7 +413,7 @@ class _ProtocolConnection {
     p.packBinary(mainCommitment.commitment);
     Uint8List data = p.takeBytes();
 
-    bb.add(_intToBytes(data.length));
+    bb.add(intToBytes(data.length));
     bb.add(data);
 
     _sock.add(bb.takeBytes());
@@ -461,7 +432,7 @@ class _ProtocolConnection {
     p.packBinary(mainReveal.encryptedUserData);
     Uint8List data = p.takeBytes();
 
-    bb.add(_intToBytes(data.length));
+    bb.add(intToBytes(data.length));
     bb.add(data);
 
     _sock.add(bb.takeBytes());
@@ -480,7 +451,7 @@ class _ProtocolConnection {
     p.packBool(matchWrongReveal.isMatch);
     Uint8List data = p.takeBytes();
 
-    bb.add(_intToBytes(data.length));
+    bb.add(intToBytes(data.length));
     bb.add(data);
 
     _sock.add(bb.takeBytes());
@@ -497,7 +468,7 @@ class _ProtocolConnection {
     BytesBuilder bb = BytesBuilder();
 
     bb.addByte(_ProtocolMessageType.encryptionSecret.index); // type
-    bb.add(_intToBytes(data.length));
+    bb.add(intToBytes(data.length));
     bb.add(data);
 
     _sock.add(bb.takeBytes());
@@ -509,12 +480,12 @@ class _ProtocolConnection {
 
     BytesBuilder bb = BytesBuilder();
     bb.addByte(_ProtocolMessageType.ready.index);
-    bb.add(_intToBytes(0));
+    bb.add(intToBytes(0));
     _sock.add(bb.takeBytes());
   }
 
   void _parseMainCommitment() {
-    Uint8List data = _takeN(_expectedBytes, _buffer);
+    Uint8List data = takeN(_expectedBytes, _buffer);
     Unpacker u = Unpacker(data);
     try {
       int? uid = u.unpackInt();
@@ -539,7 +510,7 @@ class _ProtocolConnection {
   }
 
   void _parseMainReveal() {
-    Uint8List data = _takeN(_expectedBytes, _buffer);
+    Uint8List data = takeN(_expectedBytes, _buffer);
     Unpacker u = Unpacker(data);
     try {
       int? uid = u.unpackInt();
@@ -569,7 +540,7 @@ class _ProtocolConnection {
   }
 
   void _parseMatchWrongReveal() {
-    Uint8List data = _takeN(_expectedBytes, _buffer);
+    Uint8List data = takeN(_expectedBytes, _buffer);
     Unpacker u = Unpacker(data);
     try {
       int? uid = u.unpackInt();
@@ -604,7 +575,7 @@ class _ProtocolConnection {
   }
 
   void _parseSecretSharingPacket() {
-    Uint8List data = _takeN(_expectedBytes, _buffer);
+    Uint8List data = takeN(_expectedBytes, _buffer);
     Unpacker unpacker = Unpacker(data);
     try {
       int? dhUid = unpacker.unpackInt();
@@ -634,7 +605,7 @@ class _ProtocolConnection {
     switch (_state) {
       case _ProtocolMessageParserState.waitingForMessageType:
         var messageType = _ProtocolMessageType.values[_buffer.removeAt(0)];
-        _expectedBytes = _takeInt(_buffer);
+        _expectedBytes = takeInt(_buffer);
         if (messageType == _ProtocolMessageType.mainCommitment) {
           _state = _ProtocolMessageParserState.waitingForMainCommitment;
         } else if (messageType == _ProtocolMessageType.mainReveal) {

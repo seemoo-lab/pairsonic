@@ -13,12 +13,12 @@ Next to `features`, the top level in the `lib` directory contains subdirectories
 ---
 
 - features/
-    - contacts/
-    - home/
-    - pairing/
-    - profile/
-    - settings/
-    - setup/
+  - contacts/
+  - home/
+  - pairing/
+  - profile/
+  - settings/
+  - setup/
 - generated/
 - helper/
 - l10n/

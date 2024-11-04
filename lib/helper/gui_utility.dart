@@ -56,28 +56,28 @@ class GuiUtility implements GuiUtilityInterface {
     }
   }
 
-@override
-Future<List<User>> getAllUser() async {
-  List<User> users = await storage.getUsers();
-  return users;
-}
+  @override
+  Future<List<User>> getAllUser() async {
+    List<User> users = await storage.getUsers();
+    return users;
+  }
 
-@override
-Future<User> getUserDetails(String userId) {
-  return storage.getUser(userId);
-}
+  @override
+  Future<User> getUserDetails(String userId) {
+    return storage.getUser(userId);
+  }
 
-@override
-Future init() {
-  createUser();
+  @override
+  Future init() {
+    createUser();
 
-  return this.storage.init();
-}
+    return this.storage.init();
+  }
 
-void createUser() {
-  debugPrint("GuiUtility - createUser: Insert self");
-  var identityService = getIt<IdentityService>();
-  insertOrUpdateUser(identityService.self, allowSelf: true);
-}
+  void createUser() {
+    debugPrint("GuiUtility - createUser: Insert self");
+    var identityService = getIt<IdentityService>();
+    insertOrUpdateUser(identityService.self, allowSelf: true);
+  }
 
 }

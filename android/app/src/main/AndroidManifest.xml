@@ -2,6 +2,7 @@
           package="de.seemoo.pairsonic">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- If your app targets Android 13 (API level 33)
          or higher, you must declare the NEARBY_WIFI_DEVICES permission. -->
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
@@ -49,6 +50,7 @@
                 android:name="flutterEmbedding"
                 android:value="2"/>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 

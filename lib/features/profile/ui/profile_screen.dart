@@ -51,7 +51,7 @@ class _AddressBookScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var profilePairingMethod = PairingMethodHelper.fromShortString(
-            _settingsService.getString("profilePairingMethod")) ??
+        _settingsService.getString("profilePairingMethod")) ??
         PairingMethod.groupAudio;
     FutureBuilder fb;
     if (_id.isNotEmpty) {
@@ -97,10 +97,10 @@ class _AddressBookScreenState extends State<ProfileScreen> {
       );
     } else {
       return Scaffold(
-          appBar: AppBar(
-            title: Text(S.of(context).profile),
-          ),
-          body: fb,
+        appBar: AppBar(
+          title: Text(S.of(context).profile),
+        ),
+        body: fb,
         bottomNavigationBar: const BottomInfoWidget(),
       );
     }

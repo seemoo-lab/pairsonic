@@ -83,7 +83,7 @@
   "groupPairingSetupCancel": "Cancel",
   "groupPairingSetupGo": "Start",
   "groupPairingSetupHintReady": "Make sure all devices point towards each other. Continue when all other participants are ready.",
-  "groupPairingSetupGroupSize": "Group size:",
+  "groupPairingSetupGroupSize": "Group size",
 
   "groupPairingSetupParticipantCountDescription": "Select the number of participants (including you).",
   "groupPairingSetupExchangeModeDescription": "Select the mode you want to use for pairing.",
@@ -114,19 +114,16 @@
   "groupPairingSuccessNoSelectionAlertButtonAction": "Select contacts",
 
   "groupPairingErrTimeoutName": "Timeout",
-  "groupPairingErrTimeoutDescription": "A timeout occured while waiting. This can happen when a participant looses connectivity or is too slow when confirming the user dialog.",
+  "groupPairingErrTimeoutDescription": "A timeout occured while waiting. This can happen when a participant loses connectivity or doesn't confirm a dialog within a certain time.",
 
   "groupPairingErrSecurityName": "Security Error",
-  "groupPairingErrSecurityDescription": "A security error occured. This can indicate that someone tried to meddle with the group pairing process. Please ensure that no unintended participants are present and try the pairing process again over another network.",
+  "groupPairingErrSecurityDescription": "A possible security issue has been detected and prevented. This can indicate that someone tried to meddle with the group pairing process. Please ensure that no unintended participants are present and try the pairing process again.",
 
   "groupPairingErrUnknownName": "Unknown Error",
   "groupPairingErrUnknownDescription": "An unknown error ocurred. Please retry the group pairing process. The description of the error is as follows:",
 
-  "groupPairingErrCentCommName": "Communication Error",
-  "groupPairingErrCentCommDescription": "We are having trouble reaching the server used for communication. Please check whether you have Internet access and retry. If you keep getting this error, please try another exchange mode.",
-
   "groupPairingErrWifiName": "Wi-Fi Error",
-  "groupPairingErrWifiDescription": "We are having problems setting up Wi-Fi and connecting to the other participants. Please ensure that you have enabled Wi-Fi on your device. If the error persists, please try another exchange mode.",
+  "groupPairingErrWifiDescription": "We are having problems setting up Wi-Fi and connecting to the other participants. Please ensure that Wi-Fi is enabled on your device, however, you don't need to have an Internet connection. If the error persists, please try restarting the app.",
 
   "groupPairingSelectRole": "Select your role",
   "groupPairingCoordinatorHelp": "Only one participant selects this role",

@@ -12,6 +12,7 @@ import 'package:pairsonic/features/pairing/audio/services/audio_control_service.
 import 'package:pairsonic/features/pairing/audio/services/ggwave_audio_channel_service.dart';
 import 'package:pairsonic/features/pairing/success_list_data.dart';
 import 'package:pairsonic/features/pairing/success_widget.dart';
+import 'package:pairsonic/features/pairing/ui-shared/error_widget.dart';
 import 'package:pairsonic/features/profile/identity_service.dart';
 import 'package:pairsonic/features/profile/user_model.dart';
 import 'package:pairsonic/features/settings/settings_interface.dart';
@@ -194,12 +195,13 @@ enum GroupPairingConnectivityStatus { unknown, internet, offline }
 /// {@category Widgets}
 class GroupPairingAudioWidget extends StatefulWidget {
   final Sink<double> _pairingProgressSink;
+  final Sink<String> _appBarTitleSink;
 
-  GroupPairingAudioWidget(this._pairingProgressSink, {super.key});
+  const GroupPairingAudioWidget(this._pairingProgressSink, this._appBarTitleSink, {super.key});
 
   @override
   State<GroupPairingAudioWidget> createState() =>
-      _GroupPairingAudioWidgetState(_pairingProgressSink);
+      _GroupPairingAudioWidgetState(_pairingProgressSink, _appBarTitleSink);
 }
 
 class _GroupPairingAudioWidgetState extends State<GroupPairingAudioWidget> {
@@ -207,8 +209,9 @@ class _GroupPairingAudioWidgetState extends State<GroupPairingAudioWidget> {
   final _subNavigatorKey = GlobalKey<NavigatorState>();
   final _subNavigatorRouteTracker = _RouteTracker();
   final Sink<double> _pairingProgressSink;
+  final Sink<String> _appBarTitleSink;
 
-  _GroupPairingAudioWidgetState(this._pairingProgressSink);
+  _GroupPairingAudioWidgetState(this._pairingProgressSink, this._appBarTitleSink);
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +221,7 @@ class _GroupPairingAudioWidgetState extends State<GroupPairingAudioWidget> {
         if (didPop) {
           return;
         }
-        if (await _onWillPop()) {
+        if (await _onWillPop() && context.mounted) {
           Navigator.of(context).pop();
         }
       },
@@ -249,6 +252,7 @@ class _GroupPairingAudioWidgetState extends State<GroupPairingAudioWidget> {
   @override
   void initState() {
     super.initState();
+    final context = this.context;
 
     // Callback used to check that the microphone and location permissions are granted.
     // If not, a prompt is shown.
@@ -323,13 +327,13 @@ class _GroupPairingAudioWidgetState extends State<GroupPairingAudioWidget> {
         page = GPRoleSelectionWidget(uiState: _uiState);
         break;
       case GroupPairingAudioRoutes.coordinatorSetup:
-        page = GPCoordinatorSetupWidget(uiState: _uiState, progressSink: _pairingProgressSink);
+        page = GPCoordinatorSetupWidget(uiState: _uiState, progressSink: _pairingProgressSink, appBarTitleSink: _appBarTitleSink);
         break;
       case GroupPairingAudioRoutes.running:
-        page = GPRunningWidget(uiState: _uiState, progressSink: _pairingProgressSink);
+        page = GPRunningWidget(uiState: _uiState, progressSink: _pairingProgressSink, appBarTitleSink: _appBarTitleSink);
         break;
       case GroupPairingAudioRoutes.error:
-        page = GPErrorWidget(uiState: _uiState);
+        page = const PairSonicErrorWidget();
         break;
       case GroupPairingAudioRoutes.success:
         final data = SuccessListData(_uiState._protocol!.receivedUserData, _uiState.protocol!.ownUid);

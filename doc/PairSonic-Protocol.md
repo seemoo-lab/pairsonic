@@ -19,6 +19,6 @@ The states of the PairSonic protocol are visualized below:
 
 ## Remarks
 
-The coordinator starts listening for audio messages before transmitting the initial connection message and only stops listening after the user approved the blue lock icon. 
+The coordinator starts listening for audio messages before transmitting the initial connection message and only stops listening after the user approved the blue lock icon.
 During that time, the coordinator keeps track of which messages it has transmitted and compares them to the list of messages that have been received via the audio channel.
 If the coordinator received a message that it hasn't transmitted before, a security alert is raised.

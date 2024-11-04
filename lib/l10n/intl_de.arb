@@ -114,25 +114,22 @@
   "groupPairingSuccessNoSelectionAlertButtonAction": "Kontakte auswählen",
 
   "groupPairingErrTimeoutName": "Timeout",
-  "groupPairingErrTimeoutDescription": "Ein Timeout ist aufgetreten. Das kann daran liegen, dass ein Teilnehmer die Verbindung verloren hat oder den Dialog nicht rechtzeitig bestätigt hat.",
+  "groupPairingErrTimeoutDescription": "Ein Timeout ist aufgetreten. Das kann daran liegen, dass ein Teilnehmer die Verbindung verloren hat oder den Dialog nicht innerhalb einer gewissen Zeit bestätigt hat.",
 
   "groupPairingErrSecurityName": "Sicherheits-Fehler",
-  "groupPairingErrSecurityDescription": "Ein Sicherheits-Fehler ist aufgetreten. Das kann daran liegen, dass jemand anderes unerlaubterweise in den Gruppen-Pairing-Prozess eingegriffen hat. Bitte stelle sicher, dass keine unbeabsichtigten Teilnehmer in der Nähe sind und starte den Pairing-Vorgang erneut.",
+  "groupPairingErrSecurityDescription": "Ein mögliches Sicherheitsproblem wurde erkannt und verhindert. Das kann daran liegen, dass jemand anderes unerlaubterweise in den Gruppen-Pairing-Prozess eingegriffen hat. Bitte stelle sicher, dass keine unbeabsichtigten Teilnehmer in der Nähe sind und starte den Pairing-Vorgang erneut.",
 
   "groupPairingErrUnknownName": "Ubekannter Fehler",
   "groupPairingErrUnknownDescription": "Ein unbekannter Fehler ist aufgetreten. Bitte starte den Pairing-Vorgang erneut. Fehlerbeschreibung:",
 
-  "groupPairingErrCentCommName": "Communication Error",
-  "groupPairingErrCentCommDescription": "We are having trouble reaching the server used for communication. Please check whether you have Internet access and retry. If you keep getting this error, please try another exchange mode.",
-
   "groupPairingErrWifiName": "Wi-Fi Fehler",
-  "groupPairingErrWifiDescription": "Ein Fehler ist beim Erstellen des WiFi-Netzes und bei der Verbindung mit den anderen Teilnehmern aufgetreten. Bitte stelle sicher, dass Wi-Fi auf deinem Gerät aktiviert ist.",
+  "groupPairingErrWifiDescription": "Ein Fehler ist beim Erstellen des WiFi-Netzes und bei der Verbindung mit den anderen Teilnehmern aufgetreten. Bitte stelle sicher, dass Wi-Fi auf deinem Gerät aktiviert ist. Eine Internetverbindung ist allerdings nicht notwendig.",
 
   "groupPairingSelectRole": "Wähle deine Rolle",
   "groupPairingCoordinatorHelp": "Genau ein Teilnehmer wählt diese Rolle",
   "groupPairingDeviceHelp": "Alle anderen Teilnehmer wählen diese Rolle",
 
-  "wifiEnableDialogTitle": "\"Wi-Fi Fehler\"",
+  "wifiEnableDialogTitle": "Wi-Fi Fehler",
   "wifiEnableDialogDescription": "WiFI-Netzwerk konnte nicht für Pairing eingerichtet werden. Bitte deaktiviere Wi-Fi auf deinem Gerät und aktiviere es dann wieder.",
 
   "retryGroupPairing": "Möchtest du den Pairing-Vorgang neu starten? Jeder (auch der Koordinator) muss den Vorgang neu starten.",

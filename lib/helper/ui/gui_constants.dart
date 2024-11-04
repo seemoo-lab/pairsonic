@@ -11,7 +11,7 @@ class GuiConstants {
           "assets/grouppairing/exchange.svg",
           colorMapper: SvgColorReplacer({
             Colors.black: Theme.of(context).colorScheme.onSurface,
-            Color.fromRGBO(252, 252, 252, 1.0): Theme.of(context).colorScheme.surface,
+            const Color.fromRGBO(252, 252, 252, 1.0): Theme.of(context).colorScheme.surface,
           }),
         ),
         height: height,

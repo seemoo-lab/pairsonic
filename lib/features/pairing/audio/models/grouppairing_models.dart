@@ -70,9 +70,7 @@ class GPMainReveal {
   String getCommitmentHash() {
     final commitment = concatBytes(concatBytes(hashN, encryptedUserData), dhPublicKey);
     final hashBytes = gpDigest(commitment);
-    final hexString = hex.encoder.convert(hashBytes);
-    debugPrint("HEXSTRING: " + hexString);
-    return hexString;
+    return hex.encoder.convert(hashBytes);
   }
 }
 

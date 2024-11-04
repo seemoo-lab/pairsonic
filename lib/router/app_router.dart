@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pairsonic/features/contacts/ui/address_book_screen.dart';
 import 'package:pairsonic/features/home/ui/home_page_screen.dart';
+import 'package:pairsonic/features/pairing/audio/test/test_screen.dart';
 import 'package:pairsonic/features/pairing/pairing_screen.dart';
+import 'package:pairsonic/features/pairing/ui-shared/error_widget.dart';
 import 'package:pairsonic/features/profile/ui/profile_screen.dart';
 import 'package:pairsonic/features/settings/ui/settings_screen.dart';
 import 'package:pairsonic/features/setup/ui/permissions_screen.dart';
@@ -24,5 +26,7 @@ class AppRouter {
     AppRoutes.permissions: (BuildContext context) => const PermissionsScreen(),
     AppRoutes.welcome: (BuildContext context) => WelcomeScreen(),
     AppRoutes.settings: (BuildContext context) => const SettingsScreen(),
+    AppRoutes.pairingDebug: (BuildContext context) => const TestScreen(),
+    AppRoutes.error: (BuildContext context) => const PairSonicErrorWidget(),
   };
 }

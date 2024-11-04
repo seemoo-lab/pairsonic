@@ -6,11 +6,20 @@ part of 'grouppairing_audio_widgets.dart';
 class GPRunningWidget extends StatefulWidget {
   final GroupPairingUIState _uiState;
   final Sink<double> _pairingProgressSink;
+  final Sink<String> _appBarTitleSink;
 
-  const GPRunningWidget({super.key, required uiState, required progressSink}) : _uiState = uiState, _pairingProgressSink = progressSink;
+  const GPRunningWidget({
+    super.key,
+    required uiState,
+    required progressSink,
+    required appBarTitleSink}) :
+        _uiState = uiState,
+        _pairingProgressSink = progressSink,
+        _appBarTitleSink = appBarTitleSink;
 
   @override
-  State<GPRunningWidget> createState() => _GPRunningWidgetState(_pairingProgressSink);
+  State<GPRunningWidget> createState() =>
+      _GPRunningWidgetState(_pairingProgressSink, _appBarTitleSink);
 }
 
 class _GPRunningWidgetState extends State<GPRunningWidget> {
@@ -19,8 +28,9 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
   var _statusMessage2 = "";
   final _animatedIconKey = GlobalKey<SizeAnimatedIconState>();
   final Sink<double> _pairingProgressSink;
+  final Sink<String> _appBarTitleSink;
 
-  _GPRunningWidgetState(this._pairingProgressSink);
+  _GPRunningWidgetState(this._pairingProgressSink, this._appBarTitleSink);
 
   @override
   void initState() {
@@ -76,44 +86,60 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
   /// Any public [_protocol] functions might throw a [GroupPairingException].
   /// This function catches these exceptions and updates the UI accordingly.
   Future<void> _protocolInteractionWrapper(Future<void> Function() func) async {
+    final context = this.context;
     try {
       await func();
     } on TimeoutException catch (e) {
       if (context.mounted) {
         Navigator.of(context).pushNamed(GroupPairingAudioRoutes.error,
-            arguments: ErrorWidgetArgs.timeout(context));
-      }
-      _timer.cancel();
-      debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
-    } on CommunicationFailedException catch (e) {
-      if (context.mounted) {
-        Navigator.of(context).pushNamed(GroupPairingAudioRoutes.error,
-            arguments: ErrorWidgetArgs.centralizedComm(context));
+            arguments: ErrorWidgetArgs.timeout(context, showAppBar: false, cancelAction: _errorCancelAction, retryAction: _errorRetryAction));
       }
       _timer.cancel();
       debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
     } on GroupPairingException catch (e) {
       if (context.mounted) {
         Navigator.of(context).pushNamed(GroupPairingAudioRoutes.error,
-            arguments: ErrorWidgetArgs.security(context));
+            arguments: ErrorWidgetArgs.security(context, showAppBar: false, cancelAction: _errorCancelAction, retryAction: _errorRetryAction));
       }
       _timer.cancel();
       debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
     } on WifiP2pException catch (e) {
       if (context.mounted) {
         Navigator.of(context).pushNamed(GroupPairingAudioRoutes.error,
-            arguments: ErrorWidgetArgs.wifi(context));
+            arguments: ErrorWidgetArgs.wifi(context, showAppBar: false, cancelAction: _errorCancelAction, retryAction: _errorRetryAction));
       }
       _timer.cancel();
       debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
     } catch (e) {
       if (context.mounted) {
         Navigator.of(context).pushNamed(GroupPairingAudioRoutes.error,
-            arguments: ErrorWidgetArgs.unknown(context, e.toString()));
+            arguments: ErrorWidgetArgs.unknown(context, details: e.toString(), showAppBar: false, cancelAction: _errorCancelAction, retryAction: _errorRetryAction));
       }
       _timer.cancel();
       debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
       rethrow;
+    }
+  }
+
+  void _errorRetryAction(BuildContext context) {
+    try {
+      Navigator.of(context).popUntil((route) => route.settings.name == GroupPairingAudioRoutes.roleSelection);
+      if (widget._uiState.isCoordinator!) {
+        Navigator.of(context).pushNamed(GroupPairingAudioRoutes.coordinatorSetup);
+      } else {
+        Navigator.of(context).pushNamed(GroupPairingAudioRoutes.running);
+      }
+    } catch (e) {
+      debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
+    }
+  }
+
+  void _errorCancelAction(BuildContext context) {
+    try {
+      Navigator.of(context, rootNavigator: true).popUntil(
+              (route) => route.settings.name == AppRoutes.homePage);
+    } catch (e) {
+      debugPrint("GPRunningWidget - _protocolInteractionWrapper: Error: $e");
     }
   }
 
@@ -177,7 +203,7 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
             break;
           case FailureMode.failAlways:
             Navigator.of(context).pushNamed(GroupPairingAudioRoutes.error,
-                arguments: ErrorWidgetArgs.security(context));
+                arguments: ErrorWidgetArgs.security(context, showAppBar: false, cancelAction: _errorCancelAction, retryAction: _errorRetryAction));
             _timer.cancel();
             break;
         }
@@ -190,24 +216,35 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
           _statusMessage2 = S.of(context).groupPairingSizeIndicator(widget._uiState.comm?.participantCount.toString() ?? "");
         }
       });
+
     }
-    switch (newState) {
+
+    _adaptAppBar(newState);
+  }
+
+  void _adaptAppBar(GroupPairingState state) {
+    switch (state) {
       case GroupPairingState.init:
         _pairingProgressSink.add(0.2);
         break;
       case GroupPairingState.coordinatorInit:
+        _appBarTitleSink.add(S.of(context).groupPairingSetupGroupSize);
         _pairingProgressSink.add(0.2);
         break;
       case GroupPairingState.deviceInit1:
+        _appBarTitleSink.add("Waiting...");
         _pairingProgressSink.add(0.1);
         break;
       case GroupPairingState.deviceInit2:
+        _appBarTitleSink.add("Waiting...");
         _pairingProgressSink.add(0.1);
         break;
       case GroupPairingState.establishingConnection:
+        _appBarTitleSink.add("Connecting...");
         _pairingProgressSink.add(0.25);
         break;
       case GroupPairingState.sendCommitment:
+        _appBarTitleSink.add(S.of(context).pair);
         _pairingProgressSink.add(0.3);
         break;
       case GroupPairingState.collectCommitments:
@@ -220,18 +257,22 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
         _pairingProgressSink.add(0.45);
         break;
       case GroupPairingState.coordinatorVerification:
+        _appBarTitleSink.add("Verification");
         _pairingProgressSink.add(0.5);
         break;
       case GroupPairingState.deviceVerification1:
+        _appBarTitleSink.add("Verification");
         _pairingProgressSink.add(0.5);
         break;
       case GroupPairingState.deviceVerification2:
         _pairingProgressSink.add(0.5);
         break;
       case GroupPairingState.userConfirm:
+        _appBarTitleSink.add("Confirm");
         _pairingProgressSink.add(0.75);
         break;
       case GroupPairingState.sendMatchReveal:
+        _appBarTitleSink.add(S.of(context).pair);
         _pairingProgressSink.add(0.8);
         break;
       case GroupPairingState.collectMatchReveals:
@@ -242,9 +283,14 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
         _pairingProgressSink.add(0.9);
         break;
       case GroupPairingState.done:
+        _appBarTitleSink.add("Success");
         // we don't want a colored bar at the end, so "done" has value 0.0
+        _pairingProgressSink.add(0.0);
       case GroupPairingState.timeout:
+        _appBarTitleSink.add("Timeout");
+        _pairingProgressSink.add(0.0);
       case GroupPairingState.error:
+        _appBarTitleSink.add("Error");
         _pairingProgressSink.add(0.0);
         break;
     }
@@ -283,7 +329,7 @@ class _GPRunningWidgetState extends State<GPRunningWidget> {
                   Text(_statusMessage2,
                       style: const TextStyle(fontSize: 16)),
                   widget._uiState.protocol!.state == GroupPairingState.deviceInit2
-                      ? Spacer()
+                      ? const Spacer()
                       : SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   widget._uiState.protocol!.state == GroupPairingState.deviceInit2
                       ? Container(

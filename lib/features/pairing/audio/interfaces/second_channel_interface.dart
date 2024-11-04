@@ -19,4 +19,6 @@ abstract class SecondChannelService<T> {
   Future<T?> getReceivedData();
 
   Future<List<T>> getAllReceivedData();
+
+  Future<void> dispose();
 }

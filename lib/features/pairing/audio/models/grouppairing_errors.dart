@@ -72,14 +72,3 @@ class VerificationFailedException implements GroupPairingException {
     return "Received $got as verification code but expected $expected";
   }
 }
-
-class CommunicationFailedException implements GroupPairingException {
-  final dynamic cause;
-
-  CommunicationFailedException([this.cause]);
-
-  @override
-  String toString() {
-    return "Communication failed${cause != null ? ' ($cause)' : ''}";
-  }
-}

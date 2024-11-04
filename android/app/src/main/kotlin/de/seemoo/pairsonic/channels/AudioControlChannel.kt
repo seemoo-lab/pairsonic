@@ -1,6 +1,5 @@
 package de.seemoo.pairsonic.channels
 
-import java.io.IOException
 import android.content.Context
 import android.os.Build
 import io.flutter.plugin.common.MethodChannel
@@ -11,14 +10,14 @@ import android.media.AudioAttributes
 
 class AudioControlChannel(
     private val context: Context,
-    private val channel: MethodChannel
+    channel: MethodChannel
 ) : MethodChannel.MethodCallHandler {
 
     init {
         channel.setMethodCallHandler(this)
     }
 
-    private var audioFocusRequest: AudioFocusRequest? = null;
+    private var audioFocusRequest: AudioFocusRequest? = null
 
     /// Handle the incoming method call for the audiocontrol channel.
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {

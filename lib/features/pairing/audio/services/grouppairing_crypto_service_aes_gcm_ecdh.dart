@@ -8,6 +8,7 @@ import 'package:pointycastle/key_derivators/ecdh_kdf.dart';
 /// Implements the [GroupPairingCryptoServiceInterface] using the following primitives:
 /// - AES in GCM mode for symmetric cryptography
 /// - Elliptic Curve (NIST P-256) for Diffie-Hellman
+// ignore: camel_case_types
 class GPCryptoServiceAES_GCM_ECDH extends GroupPairingCryptoServiceInterface {
   static const int macSize = 16; // 16 bytes
   static const int nonceLen = 12; // 12 bytes
@@ -73,9 +74,9 @@ class GPCryptoServiceAES_GCM_ECDH extends GroupPairingCryptoServiceInterface {
   }
 
   @override
-  AsymmetricKeyPair singleDHAgreement(PrivateKey privatePart, PublicKey publicPart) {
+  AsymmetricKeyPair singleDHAgreement(PrivateKey privatePart, PublicKey remainingPublicParts) {
     final private = privatePart as ECPrivateKey;
-    final public = publicPart as ECPublicKey;
+    final public = remainingPublicParts as ECPublicKey;
 
     final agreement = ECDHBasicAgreement()..init(private);
     final resultPrivate = ECPrivateKey(agreement.calculateAgreement(public), curve);

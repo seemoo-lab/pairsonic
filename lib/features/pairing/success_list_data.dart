@@ -19,7 +19,7 @@ class SuccessListData {
   }
 
   Future<bool> canPopNavigation(BuildContext context) async {
-    return !selectedUids.isEmpty || await _reallyPopDialog(context);
+    return selectedUids.isNotEmpty || await _reallyPopDialog(context);
   }
 
   Future<void> importSelected() async {

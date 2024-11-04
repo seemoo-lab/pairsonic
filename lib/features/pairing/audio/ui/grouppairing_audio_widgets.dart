@@ -4,11 +4,12 @@ library grouppairing_audio_widgets;
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pairsonic/constants.dart';
 import 'package:pairsonic/features/pairing/audio/grouppairing_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pairsonic/features/pairing/ui-shared/error_widget.dart';
+import 'package:pairsonic/features/pairing/ui-shared/role_selection_card_widget.dart';
 import 'package:pairsonic/helper/location_service_helper.dart';
 import 'package:pairsonic/helper/ui/button_row.dart';
 import 'package:pairsonic/helper/ui/gui_constants.dart';
@@ -26,6 +27,5 @@ import 'package:pairsonic/generated/l10n.dart';
 import 'grouppairing_audio_widget.dart';
 
 part 'coordinator_setup_widget.dart';
-part 'error_widget.dart';
 part 'role_widget.dart';
 part 'running_widget.dart';

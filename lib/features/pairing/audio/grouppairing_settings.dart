@@ -1,6 +1,6 @@
 part of 'grouppairing_protocol.dart';
 
-typedef GroupPairingCryptoServiceInterface CryptoServiceFactory();
+typedef CryptoServiceFactory = GroupPairingCryptoServiceInterface Function();
 
 /// An immutable data class used to store the settings for
 /// the group pairing protocol.
@@ -17,6 +17,7 @@ class GrouppairingProtocolSettings {
         verificationTimeoutMs: 15 * 1000,
         matchRevealCollectTimeoutMs: 3 * 60 * 1000,
         audioRetransmissionTimeoutMs: 10 * 1000,
+        secretSharingTimeoutMs: 10 * 1000,
         cryptoServiceFactory: GPCryptoServiceAES_GCM_ECDH.new,
       );
 
@@ -34,6 +35,7 @@ class GrouppairingProtocolSettings {
   final int verificationTimeoutMs;
   final int matchRevealCollectTimeoutMs;
   final int audioRetransmissionTimeoutMs;
+  final int secretSharingTimeoutMs;
   final CryptoServiceFactory cryptoServiceFactory;
 
 
@@ -49,6 +51,7 @@ class GrouppairingProtocolSettings {
     required this.verificationTimeoutMs,
     required this.matchRevealCollectTimeoutMs,
     required this.audioRetransmissionTimeoutMs,
+    required this.secretSharingTimeoutMs,
     required this.cryptoServiceFactory,
   });
 }

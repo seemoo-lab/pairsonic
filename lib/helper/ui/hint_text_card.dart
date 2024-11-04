@@ -5,7 +5,7 @@ class HintTextCard extends StatelessWidget {
   final IconData _icon;
   final TextStyle? _textStyle;
 
-  HintTextCard(this._text, {icon = Icons.lightbulb, TextStyle? textStyle})
+  const HintTextCard(this._text, {super.key, icon = Icons.lightbulb, TextStyle? textStyle})
       : _icon = icon,
         _textStyle = textStyle;
 
@@ -14,6 +14,7 @@ class HintTextCard extends StatelessWidget {
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         elevation: 0.0,
+        color: Theme.of(context).colorScheme.tertiary,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(

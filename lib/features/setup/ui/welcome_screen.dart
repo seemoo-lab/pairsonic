@@ -26,21 +26,21 @@ class WelcomeScreen extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   SvgPicture(
-                    SvgAssetLoader("assets/logo-icon.svg"),
+                    const SvgAssetLoader("assets/logo-icon.svg"),
                     height: MediaQuery.of(context).size.height * 0.3,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     alignment: Alignment.bottomCenter,
                     child: SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: RichText(
                         text: TextSpan(
                           style: Theme.of(context).textTheme.bodyLarge,
                           children: [
-                            TextSpan(
+                            const TextSpan(
                                 text: "PairSonic",
                                 style: TextStyle(fontWeight: FontWeight.bold)
                             ),
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
@@ -75,8 +75,8 @@ class WelcomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(S.of(context).generalButtonNext),
-                  SizedBox(width: 10),
-                  Icon(Icons.arrow_forward_rounded)
+                  const SizedBox(width: 10),
+                  const Icon(Icons.arrow_forward_rounded)
                 ],
               ),
             ),

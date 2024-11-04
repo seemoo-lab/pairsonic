@@ -35,7 +35,7 @@ class PairSonicApp extends StatefulWidget {
 
   static void setLanguage(BuildContext context, String language) async {
     _PairSonicAppState state =
-        context.findAncestorStateOfType<_PairSonicAppState>()!;
+    context.findAncestorStateOfType<_PairSonicAppState>()!;
     state.setLanguage(language);
   }
 }
@@ -90,37 +90,41 @@ class _PairSonicAppState extends State<PairSonicApp> {
               onGenerateTitle: (BuildContext context) => 'PairSonic',
               theme: ThemeData(
                 useMaterial3: true,
-                colorScheme: ColorScheme(
+                colorScheme: const ColorScheme(
                   brightness: Brightness.light,
                   primary: Color.fromRGBO(157, 132, 236, 1.0),
                   onPrimary: Color.fromRGBO(255, 255, 255, 1.0),
                   secondary: Color.fromRGBO(97, 91, 113, 1.0),
                   onSecondary: Color.fromRGBO(255, 255, 255, 1.0),
+                  tertiary: Color.fromRGBO(210, 210, 210, 1.0),
+                  onTertiary: Colors.black,
                   error: Color.fromRGBO(186, 26, 26, 1.0),
                   onError: Color.fromRGBO(255, 255, 255, 1.0),
                   surface: Color.fromRGBO(236, 230, 240, 1.0),
                   onSurface: Color.fromRGBO(30, 28, 19, 1.0),
                 ),
                 scaffoldBackgroundColor: GuiConstants.scaffoldBackgroundColorLight,
-                appBarTheme: AppBarTheme(
+                appBarTheme: const AppBarTheme(
                   color: GuiConstants.scaffoldBackgroundColorLight,
                 ),
               ),
               darkTheme: ThemeData(
                 useMaterial3: true,
-                colorScheme: ColorScheme(
+                colorScheme: const ColorScheme(
                   brightness: Brightness.dark,
                   primary: Color.fromRGBO(157, 132, 236, 1.0),
                   onPrimary: Color.fromRGBO(255, 255, 255, 1.0),
                   secondary: Color.fromRGBO(97, 91, 113, 1.0),
                   onSecondary: Color.fromRGBO(255, 255, 255, 1.0),
+                  tertiary: Color.fromRGBO(99, 99, 99, 1.0),
+                  onTertiary: Colors.white,
                   error: Color.fromRGBO(186, 26, 26, 1.0),
                   onError: Color.fromRGBO(255, 255, 255, 1.0),
                   surface: Color.fromRGBO(56, 53, 56, 1.0),
                   onSurface: Color.fromRGBO(239, 232, 232, 1.0),
                 ),
                 scaffoldBackgroundColor: GuiConstants.scaffoldBackgroundColorDark,
-                appBarTheme: AppBarTheme(
+                appBarTheme: const AppBarTheme(
                   color: GuiConstants.scaffoldBackgroundColorDark,
                 ),
               ),
@@ -128,7 +132,7 @@ class _PairSonicAppState extends State<PairSonicApp> {
               routes: AppRouter.routes,
             );
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }

@@ -40,8 +40,8 @@ In the future, PairSonic could be integrated into other apps as an option for in
 
 Requirements:
 - Flutter 3.22 or later (with Dart 3.4 or later)
-- Java 17 or later
-- Gradle 8.5 or later
+- Java 17
+- Gradle 7.4
 
 In order to build & run the app, make sure to have [Android Studio](https://developer.android.com/studio) as well as [adb](https://developer.android.com/tools/adb) installed and set up. For Android Studio, the [Flutter](https://plugins.jetbrains.com/plugin/9212-flutter) and [Dart](https://plugins.jetbrains.com/plugin/6351-dart) plugins are recommended. Then, either run `flutter run` or click the play button next to the main function in [lib/main.dart](lib/main.dart) in Android Studio and choose "Run main.dart".
 

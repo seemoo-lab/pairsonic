@@ -16,13 +16,20 @@ class GPCoordinatorSettings {
 class GPCoordinatorSetupWidget extends StatefulWidget {
   final GroupPairingUIState _uiState;
   final Sink<double> _pairingProgressSink;
+  final Sink<String> _appBarTitleSink;
 
-  const GPCoordinatorSetupWidget({super.key, required uiState, required progressSink})
-      : _uiState = uiState, _pairingProgressSink = progressSink;
+  const GPCoordinatorSetupWidget({
+    super.key,
+    required uiState,
+    required progressSink,
+    required appBarTitleSink}) :
+        _uiState = uiState,
+        _pairingProgressSink = progressSink,
+        _appBarTitleSink = appBarTitleSink;
 
   @override
   State<GPCoordinatorSetupWidget> createState() =>
-      _GPCoordinatorSetupWidgetState(_pairingProgressSink);
+      _GPCoordinatorSetupWidgetState(_pairingProgressSink, _appBarTitleSink);
 }
 
 enum GPCoordinatorSetupStep { participantCountSelection, ready }
@@ -36,12 +43,13 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
   var _currentStep = GPCoordinatorSetupStep.participantCountSelection;
 
   final Sink<double> _pairingProgressSink;
+  final Sink<String> _appBarTitleSink;
 
   int numParticipants = 0;
 
-  TextEditingController _customNumberController = TextEditingController(text: "");
+  final TextEditingController _customNumberController = TextEditingController(text: "");
 
-  _GPCoordinatorSetupWidgetState(this._pairingProgressSink);
+  _GPCoordinatorSetupWidgetState(this._pairingProgressSink, this._appBarTitleSink);
 
   @override
   void initState() {
@@ -62,6 +70,9 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (_currentStep == GPCoordinatorSetupStep.participantCountSelection) {
+      _appBarTitleSink.add(S.of(context).groupPairingSetupGroupSize);
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -83,7 +94,7 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
           ),
         ),
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       buildButtonRow(context),
     ];
   }
@@ -101,10 +112,12 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: List.generate(6, (i) {
           final num = i + minNumParticipants;
           return TappableNumberCard(num, onTap: () {
+            _appBarTitleSink.add("Ready");
+            _pairingProgressSink.add(0.15);
             setState(() {
               this.numParticipants = num;
               _currentStep = GPCoordinatorSetupStep.ready;
@@ -113,7 +126,7 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
           );
         }),
       ),
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
       Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
         child: Row(
@@ -124,14 +137,14 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
               "Or enter a custom size:",
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Expanded(
               child: TextField(
                 maxLines: 1,
                 controller: _customNumberController,
                 keyboardType: TextInputType.number,
                 style: Theme.of(context).textTheme.titleLarge,
-                decoration: InputDecoration(hintText: "0"),
+                decoration: const InputDecoration(hintText: "0"),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly
                 ],
@@ -156,7 +169,7 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
         child: Icon(Icons.arrow_upward_rounded,
             size: MediaQuery.of(context).size.height * 0.25),
       ),
-      Spacer(),
+      const Spacer(),
       Container(
           padding: const EdgeInsets.fromLTRB(60, 0, 60, 5),
           child: GuiConstants.svgAssetExchange(
@@ -164,9 +177,9 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
               height: MediaQuery.of(context).size.height * 0.25
           )
       ),
-      Spacer(),
+      const Spacer(),
       HintTextCard(S.of(context).groupPairingSetupHintReady),
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
       buildButtonRow(context)
     ];
   }
@@ -212,23 +225,6 @@ class _GPCoordinatorSetupWidgetState extends State<GPCoordinatorSetupWidget> {
             });
         }
       },
-                  }
-                  break;
-              }
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(_currentStep == GPCoordinatorSetupStep.ready
-                    ? S.of(context).groupPairingSetupGo
-                    : S.of(context).groupPairingSetupConfirm),
-                SizedBox.square(dimension: 4),
-                Icon(Icons.arrow_forward_rounded),
-              ],
-            ),
-          ),
-        ),
-      ],
     );
   }
 
