@@ -33,15 +33,14 @@ In the future, PairSonic could be integrated into other apps as an option for in
 - **Decentralized.** Operates without needing external key management infrastructure, prior associations, or shared secrets. Does not require an Internet connection.
 - **User-friendly.** Automates verification tasks, making the process simpler and more secure.
 - **Group compatibility.** Designed to work efficiently with both individual users and larger groups.
-- **Customizable profiles.** Developers can customize the type of contact informaiton exchanged.
+- **Customizable profiles.** Developers can customize the type of contact information exchanged.
 - **Broad compatibility.** Supports most Android devices with WiFi Direct, as long as they run Android 6 or newer (~2015).
 
 ## Build & Develop
 
 Requirements:
-- Flutter 3.22 or later (with Dart 3.4 or later)
+- Flutter 3.22
 - Java 17
-- Gradle 7.4
 
 In order to build & run the app, make sure to have [Android Studio](https://developer.android.com/studio) as well as [adb](https://developer.android.com/tools/adb) installed and set up. For Android Studio, the [Flutter](https://plugins.jetbrains.com/plugin/9212-flutter) and [Dart](https://plugins.jetbrains.com/plugin/6351-dart) plugins are recommended. Then, either run `flutter run` or click the play button next to the main function in [lib/main.dart](lib/main.dart) in Android Studio and choose "Run main.dart".
 
