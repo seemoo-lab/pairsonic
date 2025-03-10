@@ -64,9 +64,9 @@ The PairSonic protocol is based on the secure foundation of the excellent [SafeS
 
 ## References
 
-- Florentin Putz, Steffen Haesler, and Matthias Hollick. **Sounds Good? Fast and Secure Contact Exchange in Groups**. *Proc. ACM Hum.-Comput. Interact. 8, CSCW2*, 2024. (accepted for publication; soon at https://doi.org/10.1145/3686964) [[PDF](https://fputz.net/cscw24sounds/pdf/)]
-- Florentin Putz, Steffen Haesler, Thomas Völkl, Maximilian Gehring, Nils Rollshausen, and Matthias Hollick. **PairSonic: Helping Groups Securely Exchange Contact Information**. *Companion of the 2024 Computer-Supported Cooperative Work and Social Computing (CSCW Companion ’24)*, 2024. (accepted for publication; soon at https://doi.org/10.1145/3678884.3681818) [[PDF](https://fputz.net/cscw24pairsonic/pdf/)]
-
+- Florentin Putz, Steffen Haesler, and Matthias Hollick. **Sounds Good? Fast and Secure Contact Exchange in Groups**. *Proc. ACM Hum.-Comput. Interact. 8, CSCW2*, 2024. https://doi.org/10.1145/3686964 [[PDF](https://fputz.net/cscw24sounds/pdf/)]
+- Florentin Putz, Steffen Haesler, Thomas Völkl, Maximilian Gehring, Nils Rollshausen, and Matthias Hollick. **PairSonic: Helping Groups Securely Exchange Contact Information**. *Companion of the 2024 Computer-Supported Cooperative Work and Social Computing (CSCW Companion ’24)*, 2024. https://doi.org/10.1145/3678884.3681818 [[PDF](https://fputz.net/cscw24pairsonic/pdf/)]
+- [Project Overview](https://fputz.net/pairsonic)
 
 ## License
 PairSonic is released under the [Apache-2.0](LICENSE) license.
